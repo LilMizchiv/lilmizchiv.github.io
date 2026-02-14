@@ -1,0 +1,541 @@
+/* ===== GENERAL PAGE STYLES (REVISED FOR ABSOLUTE CONTENT SCROLLING) ===== */
+html, body {
+    /* Allow browser to determine overall height, but prevent main scrolling */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent main body scrolling */
+}
+
+body {
+    background-color: black;
+    color: gold;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* --- Fixed Bar Height Approximations --- */
+/* Navbar height is approx. 60px */
+/* Footer height is approx. 55px */
+
+/* ===== NAVIGATION BAR & FOOTER (Fixed) ===== */
+.navbar {
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0 0 10px gold;
+}
+/* ... (omitting nav-link styles as they are unchanged) ... */
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 0;
+    margin: 0;
+    padding: 0 20px;
+}
+
+.nav-links a {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: white;
+    transform: scale(1.05); 
+    box-shadow: 0 0 40px gold;
+}
+
+/*Animated underline effect */
+.nav-links a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: gold;
+    transition: width 0.3s;
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* ===== HERO / LOGO SECTION (Now #home content) ===== */
+.logo-container {
+    /* REVISED: Absolute position to manage height between fixed bars */
+    position: absolute;
+    top: 60px; /* Below Navbar */
+    bottom: 55px; /* Above Footer */
+    left: 0;
+    right: 0;
+    width: 100%;
+    
+    /* Ensure content is scrollable if needed, though usually not for hero */
+    overflow-y: auto; 
+    
+    /* Keep centering and visibility logic */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease-out;
+    display: none; 
+}
+
+.logo-container.active {
+    display: flex; 
+}
+
+.logo-container.logo-hidden {
+    display: none !important; 
+    height: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.logo {
+    background-image: url('images/logo.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 300px;
+    height: 300px;
+    border: 3px solid gold;
+    border-radius: 20px;
+    box-shadow: 0 0 20px gold;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px gold;
+}
+
+
+/* ===== SECTIONS (Fixed Content Area) ===== */
+section {
+    /* REVISED: Absolute position to fill space between fixed bars */
+    position: absolute;
+    top: 60px; /* Below Navbar */
+    bottom: 55px; /* Above Footer */
+    left: 0;
+    right: 0;
+    width: 100%;
+    
+    /* Enabled internal scrolling (Crucial fix) */
+    overflow-y: auto; 
+    
+    padding: 20px; /* Reduced top/bottom padding for more content space */
+    padding-top: 40px; /* Ensure space for H1/H2 header below navbar */
+    padding-bottom: 40px; /* Ensure space above footer */
+    
+    text-align: center;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* New style for H1 inside sections */
+section h1 {
+    font-family: 'Playfair Display', serif;
+    color: white; /* Make H1 stand out */
+    font-size: 2.5em; 
+    margin-bottom: 5px;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+h2 {
+    color: gold;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    /* ... (mobile styles omitted for brevity) ... */
+    .nav-links {
+        flex-direction: column;
+        background-color: #111;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        display: none;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 15px;
+        text-align: center;
+        border-top: 1px solid gold;
+    }
+    
+    /* Mobile adjustment for footer content */
+    .footer-content {
+        flex-direction: column;
+        gap: 10px; /* Space out stacked items */
+        text-align: center; /* Center text when stacked */
+    }
+}
+
+/* ===== FOOTER STYLES (REVISED TO MIMIC NAVBAR) ===== */
+footer {
+    background-color: #111; /* Dark background matching the navbar */
+    color: gold;
+    padding: 15px 0; /* Match navbar vertical padding */
+    text-align: center;
+    border-top: none; /* Remove top border */
+    
+    /* Make it fixed at the bottom */
+    position: fixed; 
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: 10; /* Match navbar z-index */
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.5); /* Shadow on top edge */
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    
+    /* Ensure content is visible */
+    padding: 0 20px;
+    
+    /* Flexbox for even horizontal spacing */
+    display: flex;
+    justify-content: space-between; /* Spreads items to the edges */
+    align-items: center;
+    width: 100%;
+}
+
+.footer-content p {
+    font-size: 0.9em;
+    margin: 5px 0;
+    opacity: 0.7;
+}
+
+.social-links a {
+    color: gold;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: white; 
+}
+
+/* ===== PAGE TOGGLE STYLES ===== */
+/* Hide all page content sections by default */
+.page-content {
+    display: none;
+}
+
+/* Only show the section that has the 'active' class */
+.page-content.active {
+    display: block;
+}
+
+/* ===== WHO WE ARE SECTION STYLES (EXPANDABLE) ===== */
+
+/* Container for each row */
+.member-row {
+    display: flex;
+    justify-content: center; /* Center the members in the row */
+    align-items: stretch; /* Ensure all member profiles in the row have roughly the same height */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 40px auto; /* Space between rows */
+    padding: 0 10px; /* Add slight padding for smaller screens before wrap */
+    flex-wrap: wrap; /* Allow wrapping if the screen is too narrow */
+}
+
+.member-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #080808; /* Slightly lighter black background for separation */
+    
+    /* Crucial: Establish stacking context and fixed minimum size */
+    position: relative;
+    flex: 0 1 250px; 
+    min-height: 380px; /* Set a standard height for the collapsed card */
+    height: auto; 
+
+    /* Ensure content outside the card is visible when expanded */
+    overflow: visible; 
+}
+
+/* Prevent interaction/visual conflicts with expanded state */
+.member-profile.expanded:hover {
+    transform: none;
+    box-shadow: 0 0 20px gold;
+}
+
+.member-profile:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 0 20px gold;
+}
+
+/* --- Toggle Content Styles (Overlay) --- */
+
+/* 1. Hide the expandable content by default */
+.member-details-expandable {
+    /* Position absolutely to take it out of the normal document flow */
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    /* Initial state (Hidden) */
+    opacity: 0;
+    visibility: hidden; /* Hide completely when not expanded */
+    
+    /* Styling to match card appearance */
+    background-color: #080808; 
+    padding: 20px; 
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.4); /* Match card border */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Stronger shadow when expanded */
+
+    /* Scroll bar for content overflow */
+    overflow-y: auto;
+    max-height: 900px; 
+    
+    /* Smooth transition for the overlay */
+    transition: all 0.5s ease-out;
+}
+
+/* 2. Show the overlay when the profile has the .expanded class (triggered by JS on hover) */
+.member-profile.expanded .member-details-expandable {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 3. Hide static content when the overlay is active */
+.member-profile.expanded .member-photo,
+.member-profile.expanded h3,
+.member-profile.expanded .member-role {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+
+/* --- Standard Profile Element Styles --- */
+
+.member-photo {
+    /* Enforcing uniform width and height for all member photos */
+    width: 180px;
+    height: 180px;
+    aspect-ratio: 1/1;
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    border-radius: 50%; /* Circular photo */
+    border: 4px solid gold;
+    margin-bottom: 15px;
+    z-index: 1;
+}
+
+.member-profile h3 {
+    color: white;
+    font-size: 1.6em;
+    margin-bottom: 5px;
+    z-index: 1;
+}
+
+.member-role {
+    color: gold;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 15px; /* Restored margin for spacing without button */
+    z-index: 1;
+}
+
+.member-bio {
+    font-size: 0.95em;
+    text-align: center;
+    max-width: 90%;
+    opacity: 0.9;
+    margin-top: 0;
+}
+
+/* --- Social Link Styles (inside the overlay) --- */
+.member-socials {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(255, 215, 0, 0.2);
+    width: 100%;
+    text-align: center;
+}
+
+.social-link {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid gold;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+}
+
+.social-link:hover {
+    background-color: gold;
+    color: black;
+}
+
+/* Remove toggle button styles entirely */
+.toggle-details { 
+    display: none; 
+}
+
+
+/* Mobile Adjustments for Member Profiles */
+@media (max-width: 768px) {
+    /* Stack members in a single column on small screens */
+    .member-row {
+        flex-direction: column;
+        gap: 0; 
+    }
+    
+    .member-photo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+
+/* ===== SONG LIST STYLES (REVERTED) ===== */
+.songlist-container {
+    max-width: 1000px;
+    margin: 30px auto 0;
+    text-align: left; /* Reset text alignment for list content */
+}
+
+.song-list {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0;
+    
+    /* UPDATED: Multi-column layout (3 columns) */
+    columns: 3; 
+    column-gap: 40px;
+}
+
+.song-list li {
+    padding: 5px 0;
+    border-bottom: 1px dashed rgba(255, 215, 0, 0.1);
+    font-size: 1em;
+    break-inside: avoid; /* Prevent list items from breaking across columns */
+}
+
+@media (max-width: 768px) {
+    .song-list {
+        columns: 1; /* Single column on mobile */
+    }
+}
+
+/* ===== UPCOMING SHOWS STYLES (UNCHANGED) ===== */
+.show-list-container {
+    max-width: 800px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.show-card {
+    background-color: #080808;
+    padding: 30px 20px;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.show-card:hover {
+    box-shadow: 0 0 30px gold;
+    transform: translateY(-5px);
+}
+
+.venue-logo {
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 2px solid gold;
+    box-shadow: 0 0 5px gold;
+}
+
+.show-card h3 {
+    color: white;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.show-location {
+    font-size: 1.1em;
+    color: gold;
+    margin: 5px 0 10px;
+}
+
+.show-date-time {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.show-details-link {
+    color: white;
+    background-color: gold;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+}
+
+.show-details-link:hover {
+    background-color: #ccac00; /* Darker gold on hover */
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .show-card {
+        padding: 20px 10px;
+    }
+}
