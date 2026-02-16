@@ -238,6 +238,10 @@ p {
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
     /* ... (mobile styles omitted for brevity) ... */
+    .member-grid {
+        grid-template-columns: 1fr; /* Stack profiles in a single column on mobile */
+        gap: 30px; /* Increase gap for better spacing when stacked */
+    }
     .nav-links {
         flex-direction: column;
         box-sizing: border-box;
@@ -334,15 +338,14 @@ footer {
 /* ===== WHO WE ARE SECTION STYLES (EXPANDABLE) ===== */
 
 /* Container for each row */
-.member-row {
-    display: flex;
-    justify-content: center; /* Center the members in the row */
-    align-items: stretch; /* Ensure all member profiles in the row have roughly the same height */
-    gap: 80px;
-    max-width: 1200px;
-    margin: 40px auto; /* Space between rows */
-    padding: 0 10px; /* Add slight padding for smaller screens before wrap */
-    flex-wrap: wrap; /* Allow wrapping if the screen is too narrow */
+.member-grid {
+    display: grid;
+    /* This creates exactly 2 columns of equal width */
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; /* Space between profiles */
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 .member-profile {
