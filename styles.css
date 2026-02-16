@@ -110,7 +110,8 @@ body::before {
         display: flex; /* Show hamburger on mobile */
         position: absolute;
         right: 20px;
-        top: 20px;
+        top: 50%;
+        transform: translateY(-50%);
         z-index: 100;
     }
 
