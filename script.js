@@ -4,7 +4,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoContainer = document.querySelector('.logo-container'); 
     const defaultSectionId = '#home'; 
     const allMemberProfiles = document.querySelectorAll('.member-profile'); 
+// --- Mobile Menu Toggle Logic ---
+    const hamburger = document.querySelector('.hamburger');
+    const navLinksContainer = document.querySelector('.nav-links');
 
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            // Toggle the menu
+            navLinksContainer.classList.toggle('active');
+            
+            // Optional: Animate the hamburger to an X
+            hamburger.classList.toggle('toggle');
+        });
+    }
+    // Close menu when a link is clicked
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinksContainer.classList.remove('active');
+            hamburger.classList.remove('toggle');
+        });
+    });
+    
     // --- Core Page Switching Logic (Omitted for brevity, remains unchanged) ---
     const showSection = (targetId, updateHistory = true) => {
         // ... (function logic remains the same) ...
