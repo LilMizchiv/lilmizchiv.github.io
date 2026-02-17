@@ -4,7 +4,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Prevent main body scrolling */
+    overflow: auto; /* Prevent main body scrolling */
 }
 
 body {
@@ -346,6 +346,8 @@ footer {
     max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .member-profile {
@@ -500,11 +502,21 @@ footer {
 /* Mobile Adjustments for Member Profiles */
 @media (max-width: 768px) {
     /* Stack members in a single column on small screens */
-    .member-row {
-        flex-direction: column;
-        gap: 0; 
+ .member-grid {
+        display: flex !important;      /* Switch to Flexbox for simpler stacking */
+        flex-direction: column !important; /* Stack top-to-bottom */
+        align-items: center !important;    /* Center everything */
+        gap: 30px;
+        padding: 0 10px; /* Smaller padding for mobile */
     }
     
+    .member-profile {
+        width: 100% !important; /* Force profile to fit screen */
+        max-width: 350px;       /* Prevent it from getting too wide */
+        margin: 0 auto;         /* Center it */
+    }
+
+  
     .member-photo {
         width: 150px;
         height: 150px;
