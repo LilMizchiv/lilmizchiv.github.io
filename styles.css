@@ -617,13 +617,3 @@ footer {
 
 /* ===== CONTACT US CALENDAR STYLES ===== */
 
-.booking-calendar-container {
-    max-width: 500px; /* Reduced width since the content is just text and a button */
-    margin: 30px auto;
-    padding: 30px;
-    background-color: #080808;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-    text-align: center;
-}
